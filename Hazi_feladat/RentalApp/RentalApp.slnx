@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="RentalApp.Core/RentalApp.Core.csproj" />
+  <Project Path="RentalApp/RentalApp.csproj" />
+</Solution>
