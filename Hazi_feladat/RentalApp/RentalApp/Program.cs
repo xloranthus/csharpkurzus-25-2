@@ -3,7 +3,11 @@
 using RentalApp.Core;
 using App = RentalApp.Core.RentalApp;
 
-IRentalApp app = new App();
+
+// TODO Fix:
+const string databaseFile = "C:\\Users\\xloranthus\\source\\repos\\csharpkurzus-25-2\\Hazi_feladat\\RentalApp\\RentalApp\\out.json";
+
+IRentalApp app = new App(databaseFile);
 
 string? cmd;
 
