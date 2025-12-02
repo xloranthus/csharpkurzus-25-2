@@ -1,16 +1,50 @@
 ﻿
 
+using System.Text.Json.Serialization;
+
 namespace RentalApp.Core;
 
 internal class Equipment : IEquipment
 {
-    public required string Barcode { get; init; }
-    
-    public required IReadOnlyList<string> Sports { get; init; }
-    
-    public required string EquipmentType { get; init; } = "EqType";
-    
-    public required string Description { get; init; } = "EqDesc";
+    private readonly string _barcode;
+    public required string Barcode
+    {
+        get
+        {
+            return _barcode; 
+        }
+        init
+        {
+            if(value is null)
+            {
+                throw new ArgumentNullException("Barcode cannot be null.");
+            }
+            _barcode = value;
+        }
+    }
+
+    private readonly IReadOnlyList<Sport> _sports;
+    public required IReadOnlyList<Sport> Sports
+    {
+        get
+        {
+            return _sports;
+        }
+        init
+        {
+            
+            if (value is null || value.Count == 0)
+            {
+                throw new ArgumentNullException("Sports cannot be null or empty list.");
+            }
+            _sports = value;
+        }
+    }
+
+    [JsonPropertyName("Equipment type")]
+    public required EquipmentType EquipmentType { get; init; }
+    public string? Brand {  get; init; }
+    public string? Description { get; init; }
 
     public int CompareTo(IEquipment? other)
     {

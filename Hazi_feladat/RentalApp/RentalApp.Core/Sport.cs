@@ -1,18 +1,21 @@
 ﻿
+using System.Text.Json.Serialization;
+
 namespace RentalApp.Core;
 
-public class Sport
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum Sport
 {
+    [JsonStringEnumMemberName("Skiing")]
+    Skiing,
 
-    public required string Value { get; init; }
+    [JsonStringEnumMemberName("Snowboarding")]
+    Snowboarding,
 
-    public static Sport Skiing { get { return new Sport() { Value = "Skiing"}; } }
-    public static Sport Snowboarding { get { return new Sport() { Value = "Snowboarding" }; } }
-    // Cycling
-    // IceSkating
+    [JsonStringEnumMemberName("Ice skating")]
+    IceSkating,
 
-    public override string ToString()
-    {
-        return Value; 
-    }
+    [JsonStringEnumMemberName("Fishing")]
+    Fishing,
+
 }

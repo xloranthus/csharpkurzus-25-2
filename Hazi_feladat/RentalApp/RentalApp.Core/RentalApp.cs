@@ -1,6 +1,5 @@
 ﻿
 using System.Text.Json;
-using System.Linq;
 
 namespace RentalApp.Core;
 
@@ -63,12 +62,15 @@ public class RentalApp : IRentalApp
             // JsonSerializer.Deserialize csak abban az esetben ad vissza null-t, ha maga a JSONString null
             IEquipment equipment = JsonSerializer.Deserialize<Equipment>(JSONString)!;
             Console.WriteLine(equipment);
-            Console.WriteLine(equipment.Barcode);
             return new Result<IEquipment, string>(equipment);
         }
         catch (Exception ex)
         {
-            return new Result<IEquipment, string>(ex.Message);
+            if(ex is JsonException || ex is ArgumentNullException)
+            {
+                return new Result<IEquipment, string>(ex.Message);
+            }
+            throw;
         }
 
     }

@@ -1,16 +1,18 @@
 ﻿
+using System.Text.Json.Serialization;
+
 namespace RentalApp.Core;
 
 internal interface IEquipment : IEquatable<IEquipment>, IComparable<IEquipment>
 {
 
     string Barcode { get; init; }
+    IReadOnlyList<Sport> Sports { get; init; }
 
-    IReadOnlyList<string> Sports { get; init; }
-
-    string EquipmentType { get; init; }
-
-    string Description { get; init; }
+    [JsonPropertyName("Equipment type")]
+    EquipmentType EquipmentType { get; init; }
+    string? Brand { get; init; }
+    string? Description { get; init; }
 
 }
 

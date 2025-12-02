@@ -5,11 +5,13 @@ using App = RentalApp.Core.RentalApp;
 
 
 // TODO Fix:
-const string databaseFile = "C:\\Users\\xloranthus\\source\\repos\\csharpkurzus-25-2\\Hazi_feladat\\RentalApp\\RentalApp\\out.json";
+// const string databaseFile = "C:\\Users\\xloranthus\\source\\repos\\csharpkurzus-25-2\\Hazi_feladat\\RentalApp\\RentalApp\\out.json";
+const string databaseFile = "C:\\Users\\wivie\\source\\repos\\csharpkurzus-25-2\\Hazi_feladat\\RentalApp\\RentalApp\\out.json";
 
 IRentalApp app = new App(databaseFile);
 
 string? cmd;
+Console.Write("$>");
 
 while (string.IsNullOrEmpty(cmd = Console.ReadLine()) is false)
 {
@@ -25,7 +27,9 @@ while (string.IsNullOrEmpty(cmd = Console.ReadLine()) is false)
     
     if (File.Exists(fileName) is false)
     {
-        throw new FileNotFoundException($"{fileName} does not exist.");
+        Console.WriteLine($"{fileName} does not exist.");
+        Console.Write("$>");
+        continue;
     }
     
     string JSONString = File.ReadAllText(fileName);
@@ -36,5 +40,7 @@ while (string.IsNullOrEmpty(cmd = Console.ReadLine()) is false)
             Console.WriteLine(app.AddEquipment(JSONString));
             break;
     }
+
+    Console.Write("$>");
 }
 
