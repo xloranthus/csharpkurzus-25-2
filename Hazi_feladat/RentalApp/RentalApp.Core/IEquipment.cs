@@ -1,7 +1,7 @@
 ﻿
 namespace RentalApp.Core;
 
-internal interface IEquipment
+internal interface IEquipment : IEquatable<IEquipment>, IComparable<IEquipment>
 {
 
     string Barcode { get; init; }

@@ -2,7 +2,7 @@
 
 namespace RentalApp.Core;
 
-internal class Equipment : IEquipment, IEquatable<Equipment>, IComparable<Equipment>
+internal class Equipment : IEquipment
 {
     public required string Barcode { get; init; }
     
@@ -12,24 +12,31 @@ internal class Equipment : IEquipment, IEquatable<Equipment>, IComparable<Equipm
     
     public required string Description { get; init; } = "EqDesc";
 
-    public int CompareTo(Equipment? other)
+    public int CompareTo(IEquipment? other)
     {
-        if(other is null)
+        if (other is null)
         {
-            return 1;   
+            return 1;
         }
         return Barcode.CompareTo(other.Barcode);
     }
 
-    public bool Equals(Equipment? other)
+    public bool Equals(IEquipment? other)
     {
         return other is not null && Barcode == other.Barcode;
     }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is not null && obj is IEquipment equipment && Barcode == equipment.Barcode;
+    }
+
 
     public override int GetHashCode()
     {
         return Barcode.GetHashCode();
     }
+    
 
     public override string ToString()
     {
