@@ -28,6 +28,7 @@ while (string.IsNullOrEmpty(cmd = Console.ReadLine()) is false)
     switch (cmdType)
     {
         case "addeq":
+        case "updeq":
             if (File.Exists(cmdParam) is false)
             {
                 Console.WriteLine($"{cmdParam} does not exist.");
@@ -35,11 +36,20 @@ while (string.IsNullOrEmpty(cmd = Console.ReadLine()) is false)
                 continue;
             }
             string JSONString = File.ReadAllText(cmdParam);
-            Console.WriteLine(app.AddEquipment(JSONString));
+            switch (cmdType)
+            {
+                case "addeq":
+                    Console.WriteLine(app.AddEquipment(JSONString));
+                    break;
+                case "updeq":
+                    Console.WriteLine(app.UpdateEquipment(JSONString));
+                    break;
+            }
             break;
         case "deleq":
             Console.WriteLine(app.DeleteEquipment(cmdParam));
             break;
+
     }
 
     Console.Write("$>");
