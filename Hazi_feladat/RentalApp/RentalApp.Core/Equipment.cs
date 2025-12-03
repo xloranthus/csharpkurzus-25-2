@@ -6,7 +6,8 @@ namespace RentalApp.Core;
 
 internal class Equipment : IEquipment
 {
-    private readonly string _barcode;
+
+    private readonly string _barcode = default!;
     public required string Barcode
     {
         get
@@ -23,7 +24,16 @@ internal class Equipment : IEquipment
         }
     }
 
-    private readonly IReadOnlyList<Sport> _sports;
+    [JsonIgnore]
+    public string Identifier
+    {
+        get
+        {
+            return _barcode;
+        }
+    }
+
+    private readonly IReadOnlyList<Sport> _sports = default!;
     public required IReadOnlyList<Sport> Sports
     {
         get
@@ -32,7 +42,6 @@ internal class Equipment : IEquipment
         }
         init
         {
-            
             if (value is null || value.Count == 0)
             {
                 throw new ArgumentNullException("Sports cannot be null or empty list.");
@@ -74,6 +83,6 @@ internal class Equipment : IEquipment
 
     public override string ToString()
     {
-        return $"Barcode: {Barcode}, Sports: {string.Join(", ", Sports)}, EquipmentType: {EquipmentType}, Description: {Description}";
+        return $"Barcode: {Barcode}, Sports: {(Sports is not null ? string.Join(", ", Sports) : "")}, EquipmentType: {EquipmentType}, Description: {Description}";
     }
 }

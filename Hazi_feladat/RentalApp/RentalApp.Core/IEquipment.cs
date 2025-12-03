@@ -1,11 +1,11 @@
 ﻿
+
 using System.Text.Json.Serialization;
 
 namespace RentalApp.Core;
 
-internal interface IEquipment : IEquatable<IEquipment>, IComparable<IEquipment>
+internal interface IEquipment : IEquatable<IEquipment>, IComparable<IEquipment>, IHasIdentifier
 {
-
     string Barcode { get; init; }
     IReadOnlyList<Sport> Sports { get; init; }
 
