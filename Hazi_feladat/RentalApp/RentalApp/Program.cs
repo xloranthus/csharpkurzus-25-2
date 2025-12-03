@@ -23,21 +23,22 @@ while (string.IsNullOrEmpty(cmd = Console.ReadLine()) is false)
     }
 
     string cmdType = cmds[0];
-    string fileName = cmds[1];
-    
-    if (File.Exists(fileName) is false)
-    {
-        Console.WriteLine($"{fileName} does not exist.");
-        Console.Write("$>");
-        continue;
-    }
-    
-    string JSONString = File.ReadAllText(fileName);
+    string cmdParam = cmds[1];
     
     switch (cmdType)
     {
         case "addeq":
+            if (File.Exists(cmdParam) is false)
+            {
+                Console.WriteLine($"{cmdParam} does not exist.");
+                Console.Write("$>");
+                continue;
+            }
+            string JSONString = File.ReadAllText(cmdParam);
             Console.WriteLine(app.AddEquipment(JSONString));
+            break;
+        case "deleq":
+            Console.WriteLine(app.DeleteEquipment(cmdParam));
             break;
     }
 
