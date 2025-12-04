@@ -5,43 +5,45 @@ namespace RentalApp.Core;
 
 internal class JsonParseManager() : IJsonParseManager
 {
-    public Result<TRecord, string> ParseRecord<TRecord>(string jsonString)
+    public Result<TIRecord, string> ParseRecord<TIRecord,TRecord>(string jsonString)
+        where TRecord : class, TIRecord
     {
         if (string.IsNullOrEmpty(jsonString) || jsonString == "null")
         {
-            return new Result<TRecord, string>("Cannot parse null or empty string.");
+            return new Result<TIRecord, string>("Cannot parse null or empty string.");
         }
 
         try
         {
             // JsonSerializer.Deserialize csak abban az esetben ad vissza null-t, ha maga a jsonString null
-            TRecord record = JsonSerializer.Deserialize<TRecord>(jsonString)!;
+            TIRecord record = JsonSerializer.Deserialize<TRecord>(jsonString)!;
             Console.WriteLine($"Record parsed successfully:{Environment.NewLine}{record}");
-            return new Result<TRecord, string>(record);
+            return new Result<TIRecord, string>(record);
         }
         catch (Exception ex)
         {
-            if (ex is JsonException || ex is ArgumentNullException)
+            if (ex is JsonException || ex is InvalidOperationException)
             {
-                return new Result<TRecord, string>(ex.Message);
+                return new Result<TIRecord, string>(ex.Message);
             }
             throw;
         }
 
     }
 
-    public void SaveRecords<TRecord>(string databaseFile, IEnumerable<TRecord> records)
+    public void SaveRecords<TIRecord>(string databaseFile, IEnumerable<TIRecord> records)
     {
-        string jsonString = JsonSerializer.Serialize<IEnumerable<TRecord>>(records, new JsonSerializerOptions { WriteIndented = true });
+        string jsonString = JsonSerializer.Serialize<IEnumerable<TIRecord>>(records, new JsonSerializerOptions { WriteIndented = true });
         File.WriteAllText(databaseFile, jsonString);
     }
 
-    public IEnumerable<TRecord> LoadRecords<TRecord>(string databaseFile)
+    public IEnumerable<TIRecord> LoadRecords<TIRecord,TRecord>(string databaseFile)
+        where TRecord : class, TIRecord
     {
         string jsonString;
         if (File.Exists(databaseFile) is false || string.IsNullOrEmpty(jsonString = File.ReadAllText(databaseFile)))
         {
-            return new List<TRecord>();
+            return new List<TIRecord>();
         }
         return JsonSerializer.Deserialize<List<TRecord>>(jsonString)!;
     }

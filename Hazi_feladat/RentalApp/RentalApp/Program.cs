@@ -5,10 +5,13 @@ using App = RentalApp.Core.RentalApp;
 
 
 // TODO Fix:
-// const string databaseFile = "C:\\Users\\xloranthus\\source\\repos\\csharpkurzus-25-2\\Hazi_feladat\\RentalApp\\RentalApp\\out.json";
-const string databaseFile = "C:\\Users\\wivie\\source\\repos\\csharpkurzus-25-2\\Hazi_feladat\\RentalApp\\RentalApp\\out.json";
+// const string basePath = @"C:\Users\xloranthus\source\repos\csharpkurzus-25-2\Hazi_feladat\RentalApp\RentalApp";
+const string basePath = @"C:\Users\wivie\source\repos\csharpkurzus-25-2\Hazi_feladat\RentalApp\RentalApp";
+string equipmentDBFile = Path.Combine(basePath, "equipmentDB.json");
+string customerDBFile = Path.Combine(basePath, "customerDB.json");
+string reservationDBFile = Path.Combine(basePath, "reservationDB.json");
 
-IRentalApp app = new App(databaseFile);
+IRentalApp app = new App(equipmentDBFile, customerDBFile, reservationDBFile);
 
 string? cmd;
 Console.Write("$>");

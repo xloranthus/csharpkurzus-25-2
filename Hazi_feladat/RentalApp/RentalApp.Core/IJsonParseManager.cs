@@ -3,8 +3,10 @@ namespace RentalApp.Core
 {
     internal interface IJsonParseManager
     {
-        IEnumerable<TRecord> LoadRecords<TRecord>(string databaseFile);
-        Result<TRecord, string> ParseRecord<TRecord>(string jsonString);
-        void SaveRecords<TRecord>(string databaseFile, IEnumerable<TRecord> records);
+
+        Result<TIRecord, string> ParseRecord<TIRecord, TRecord>(string jsonString) where TRecord : class, TIRecord;
+        void SaveRecords<TIRecord>(string databaseFile, IEnumerable<TIRecord> records);
+        IEnumerable<TIRecord> LoadRecords<TIRecord,TRecord>(string databaseFile) where TRecord : class, TIRecord;
+        
     }
 }

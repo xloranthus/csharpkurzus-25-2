@@ -16,22 +16,17 @@ internal class Equipment : IEquipment
         }
         init
         {
-            if(value is null)
+            if(string.IsNullOrEmpty(value))
             {
-                throw new ArgumentNullException("Barcode cannot be null.");
+                throw new InvalidOperationException("Barcode cannot be null or empty.");
             }
             _barcode = value;
         }
     }
 
     [JsonIgnore]
-    public string Identifier
-    {
-        get
-        {
-            return _barcode;
-        }
-    }
+    public string Identifier => _barcode;
+
 
     private readonly IReadOnlyList<Sport> _sports = default!;
     public required IReadOnlyList<Sport> Sports
@@ -44,7 +39,7 @@ internal class Equipment : IEquipment
         {
             if (value is null || value.Count == 0)
             {
-                throw new ArgumentNullException("Sports cannot be null or empty list.");
+                throw new InvalidOperationException("Sports cannot be null or empty list.");
             }
             _sports = value;
         }

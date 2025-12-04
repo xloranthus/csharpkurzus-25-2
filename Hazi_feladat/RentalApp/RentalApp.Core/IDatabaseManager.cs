@@ -1,8 +1,12 @@
 ﻿namespace RentalApp.Core;
 
-internal interface IDatabaseManager
+internal interface IDatabaseManager<TIRecord>
 {
-    string AddRecord(string jsonString);
-    string DeleteRecord(string identifier);
-    string UpdateRecord(string jsonString);
+    public bool RecordExists(string identifier);
+
+    public void AddRecord(TIRecord record);
+
+    public void DeleteRecord(string identifier);
+
+    public void UpdateRecord(TIRecord record);
 }
