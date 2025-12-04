@@ -1,8 +1,7 @@
-﻿
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 
-namespace RentalApp.Core;
+namespace RentalApp.Core.Models;
 
 internal class Customer : ICustomer
 {
@@ -10,10 +9,7 @@ internal class Customer : ICustomer
     private readonly string _name = default!;
     public required string Name
     {
-        get
-        {
-            return _name;
-        }
+        get => _name;
         init
         {
             if (string.IsNullOrEmpty(value))
@@ -27,10 +23,7 @@ internal class Customer : ICustomer
     private readonly string _email = default!;
     public required string Email
     {
-        get
-        {
-            return _email;
-        }
+        get => _email;
         init
         {
             if (string.IsNullOrEmpty(value) || Regex.IsMatch(value, @"^[^@\s]+@[^@\s]+\.[^@\s]+$") is false)
@@ -41,16 +34,11 @@ internal class Customer : ICustomer
         }
     }
 
-    [JsonIgnore]
-    public string Identifier => _email;
 
     private readonly string _phone = default!;
     public string Phone
     {
-        get
-        {
-            return _phone;
-        }
+        get => _phone;
         init
         {
             // +1 123-456-789
@@ -64,5 +52,12 @@ internal class Customer : ICustomer
         }
     }
 
+    [JsonIgnore]
+    public string Identifier => _email;
+
+    public override string ToString()
+    {
+        return $"Name: {Name}, Email: {Email}, Phone: {Phone}";
+    }
     
 }

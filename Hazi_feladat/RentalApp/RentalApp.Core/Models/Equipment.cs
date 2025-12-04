@@ -1,8 +1,6 @@
-﻿
+﻿using System.Text.Json.Serialization;
 
-using System.Text.Json.Serialization;
-
-namespace RentalApp.Core;
+namespace RentalApp.Core.Models;
 
 internal class Equipment : IEquipment
 {
@@ -10,10 +8,7 @@ internal class Equipment : IEquipment
     private readonly string _barcode = default!;
     public required string Barcode
     {
-        get
-        {
-            return _barcode; 
-        }
+        get => _barcode;    
         init
         {
             if(string.IsNullOrEmpty(value))
@@ -24,17 +19,10 @@ internal class Equipment : IEquipment
         }
     }
 
-    [JsonIgnore]
-    public string Identifier => _barcode;
-
-
     private readonly IReadOnlyList<Sport> _sports = default!;
     public required IReadOnlyList<Sport> Sports
     {
-        get
-        {
-            return _sports;
-        }
+        get => _sports;
         init
         {
             if (value is null || value.Count == 0)
@@ -50,6 +38,9 @@ internal class Equipment : IEquipment
     public string? Brand {  get; init; }
     public string? Description { get; init; }
 
+    [JsonIgnore]
+    public string Identifier => _barcode;
+    
     public int CompareTo(IEquipment? other)
     {
         if (other is null)

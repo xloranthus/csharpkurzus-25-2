@@ -1,15 +1,13 @@
 ﻿using System.Diagnostics;
 
-namespace RentalApp.Core;
+namespace RentalApp.Core.Services;
 
-internal class DatabaseManager<TIRecord, TRecord> : IDatabaseManager<TIRecord>
-    where TIRecord : IHasIdentifier
-    where TRecord : class, TIRecord
+internal class DatabaseManager<TRecord> : IDatabaseManager<TRecord> where TRecord : IHasIdentifier
 {
 
     private readonly string _databaseFile;
     private readonly IJsonParseManager _jsonParseManager;
-    private IEnumerable<TIRecord> _records = default!;
+    private IEnumerable<TRecord> _records = default!;
 
     public DatabaseManager(string databaseFile, IJsonParseManager jsonParseManager)
     {
@@ -27,9 +25,9 @@ internal class DatabaseManager<TIRecord, TRecord> : IDatabaseManager<TIRecord>
         return _records.Any(record => record.Identifier == identifier);
     }
 
-    public void AddRecord(TIRecord record)
+    public void AddRecord(TRecord record)
     {
-        _records = _records.Concat(new List<TIRecord> { record });
+        _records = _records.Concat(new List<TRecord> { record });
         SaveRecords();
     }
 
@@ -44,7 +42,7 @@ internal class DatabaseManager<TIRecord, TRecord> : IDatabaseManager<TIRecord>
         _records = _records.Where(record => record.Identifier != identifier);   
     }
 
-    public void UpdateRecord(TIRecord record)
+    public void UpdateRecord(TRecord record)
     {
         DeleteRecordWoutSaving(record.Identifier);
         AddRecord(record);
@@ -52,12 +50,12 @@ internal class DatabaseManager<TIRecord, TRecord> : IDatabaseManager<TIRecord>
 
     private void LoadRecords()
     {
-        _records = _jsonParseManager.LoadRecords<TIRecord,TRecord>(_databaseFile);
+        _records = _jsonParseManager.LoadRecords<TRecord>(_databaseFile);
     }
 
     private void SaveRecords()
     {
-        _jsonParseManager.SaveRecords<TIRecord>(_databaseFile, _records);
+        _jsonParseManager.SaveRecords<TRecord>(_databaseFile, _records);
     }
 
 }

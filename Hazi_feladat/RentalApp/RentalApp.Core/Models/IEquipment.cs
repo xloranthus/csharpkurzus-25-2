@@ -1,10 +1,8 @@
-﻿
+﻿using System.Text.Json.Serialization;
 
-using System.Text.Json.Serialization;
+namespace RentalApp.Core.Models;
 
-namespace RentalApp.Core;
-
-internal interface IEquipment : IEquatable<IEquipment>, IComparable<IEquipment>, IHasIdentifier
+internal interface IEquipment : IRecord, IEquatable<IEquipment>, IComparable<IEquipment>
 {
     string Barcode { get; init; }
     IReadOnlyList<Sport> Sports { get; init; }

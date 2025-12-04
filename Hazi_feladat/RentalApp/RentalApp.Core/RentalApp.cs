@@ -1,11 +1,14 @@
-﻿using System.Diagnostics;
+﻿using RentalApp.Core.Models;
+using RentalApp.Core.Services;
+using System.Diagnostics;
 
 namespace RentalApp.Core;
     
-public class RentalApp : IRentalApp
+internal class RentalApp : IRentalApp
 {
 
     private readonly IJsonParseManager _jsonParseManager;
+    private readonly IEnumerable<IDatabaseManager<IRecord>> _dbManagers;
     private readonly IDatabaseManager<IEquipment> _equipmentDBManager;
     private readonly IDatabaseManager<ICustomer> _customerDBManager;
     private readonly IDatabaseManager<IReservation> _reservationDBManager;
@@ -14,40 +17,39 @@ public class RentalApp : IRentalApp
     private const string ERR_NOT_FOUND = "{0} could not be found in the database.";
     private const string SUCCESS = "{0} {1} successfully.";
 
-    public RentalApp(string equipmentDBFile, string customerDBFile, string reservationDBFile)
+    public RentalApp(IJsonParseManager jsonParseManager, IDatabaseManager<IEquipment> equipmentDBManager, IDatabaseManager<ICustomer> customerDBManager, IDatabaseManager<IReservation> reservationDBManager)
     {
-        _jsonParseManager = new JsonParseManager();
-        _equipmentDBManager = new DatabaseManager<IEquipment, Equipment>(equipmentDBFile, _jsonParseManager);
-        _customerDBManager = new DatabaseManager<ICustomer, Customer>(customerDBFile, _jsonParseManager);
-        _reservationDBManager = new DatabaseManager<IReservation, Reservation>(reservationDBFile, _jsonParseManager);
+        _jsonParseManager = jsonParseManager;
+        _equipmentDBManager = equipmentDBManager;
+        _customerDBManager = customerDBManager;
+        _reservationDBManager = reservationDBManager;
     }
 
     // ADD
     public string AddEquipment(string jsonString)
     {
-        return ParseRecord<IEquipment,Equipment>(jsonString, AddRecord);
+        return ParseRecord<IEquipment>(jsonString, AddRecord);
     }
     public string AddCustomer(string jsonString)
     {
-        return ParseRecord<ICustomer,Customer>(jsonString, AddRecord);
+        return ParseRecord<ICustomer>(jsonString, AddRecord);
     }
     public string AddReservation(string jsonString)
     {
-        return ParseRecord<IReservation,Reservation>(jsonString, AddRecord);
+        return ParseRecord<IReservation>(jsonString, AddRecord);
     }
 
 
-    private string ParseRecord<TIRecord, TRecord>(string jsonString, Func<TIRecord,string> successAction)
-        where TRecord : class, TIRecord
+    private string ParseRecord<TRecord>(string jsonString, Func<TRecord,string> successAction)
     {
-        Result<TIRecord, string> result = _jsonParseManager.ParseRecord<TIRecord, TRecord>(jsonString);
+        Result<TRecord, string> result = _jsonParseManager.ParseRecord<TRecord>(jsonString);
         string toReturn = default!;
         result.Visit((record) => toReturn = successAction(record),
                     (error) => toReturn = error);
         return toReturn;
     }
 
-    private string AddRecord<TIRecord>(TIRecord record)
+    private string AddRecord<TRecord>(TRecord record)
     {
         if (record is IEquipment equipment)
         {
@@ -109,17 +111,17 @@ public class RentalApp : IRentalApp
     //  UPDATE
     public string UpdateEquipment(string jsonString)
     {
-        return ParseRecord<IEquipment, Equipment>(jsonString, UpdateRecord);
+        return ParseRecord<IEquipment>(jsonString, UpdateRecord);
     }
 
     public string UpdateCustomer(string jsonString)
     {
-        return ParseRecord<ICustomer, Customer>(jsonString, UpdateRecord);
+        return ParseRecord<ICustomer>(jsonString, UpdateRecord);
     }
 
     public string UpdateReservation(string jsonString)
     {
-        return ParseRecord<IReservation, Reservation>(jsonString, UpdateRecord);
+        return ParseRecord<IReservation>(jsonString, UpdateRecord);
     }
 
     private string UpdateRecord<TIRecord>(TIRecord record)

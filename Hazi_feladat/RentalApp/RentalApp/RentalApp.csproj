@@ -12,46 +12,64 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="extra_attribs.json">
+    <None Update="test_cus_all_attribs_ok1_modified.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="barcode_attrib_null.json">
+    <None Update="test_cus_email_null.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="equipmentType_attrib_null.json">
+    <None Update="test_cus_phone_null.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="brand_attrib_null.json">
+    <None Update="test_cus_name_null.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="desc_attrib_null.json">
+    <None Update="test_cus_all_attribs_ok2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="sports_attrib_emptyList.json">
+    <None Update="test_cus_all_attribs_ok1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="sports_attrib_null.json">
+    <None Update="test_eq_extra_attribs.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="null.json">
+    <None Update="test_eq_barcode_attrib_null.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="missing_attribs.json">
+    <None Update="test_eq_equipmentType_attrib_null.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="all_attribs_null.json">
+    <None Update="test_eq_brand_attrib_null.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="empty_obj.json">
+    <None Update="test_eq_desc_attrib_null.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="empty_file.json">
+    <None Update="test_eq_sports_attrib_emptyList.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="all_attribs_ok2.json">
+    <None Update="test_eq_sports_attrib_null.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="all_attribs_ok1.json">
+    <None Update="test_all_null.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="test_eq_missing_attribs.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="test_eq_all_attribs_null.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="test_all_empty_obj.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="test_all_empty_file.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="test_eq_all_attribs_ok2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="test_eq_all_attribs_ok1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

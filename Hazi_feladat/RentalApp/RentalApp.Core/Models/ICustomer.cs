@@ -1,7 +1,6 @@
-﻿
-namespace RentalApp.Core;
+﻿namespace RentalApp.Core.Models;
 
-internal interface ICustomer : IHasIdentifier
+internal interface ICustomer : IRecord
 {
     string Name { get; init; }
     string Email {  get; init; }

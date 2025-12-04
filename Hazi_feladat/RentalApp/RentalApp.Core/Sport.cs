@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace RentalApp.Core;
 
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum Sport
+internal enum Sport
 {
     [JsonStringEnumMemberName("Skiing")]
     Skiing,
