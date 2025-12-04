@@ -8,7 +8,6 @@ internal class RentalApp : IRentalApp
 {
 
     private readonly IJsonParseManager _jsonParseManager;
-    private readonly IEnumerable<IDatabaseManager<IRecord>> _dbManagers;
     private readonly IDatabaseManager<IEquipment> _equipmentDBManager;
     private readonly IDatabaseManager<ICustomer> _customerDBManager;
     private readonly IDatabaseManager<IReservation> _reservationDBManager;
